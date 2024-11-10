@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HyperX - Your Place to Talk and Hang Out</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1a1c20 0%, #2c2f33 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+        .header {
+            background-color: #7289da;
+            padding: 20px;
+            text-align: center;
+        }
+        .header img {
+            width: 150px;
+            border-radius: 10%;
+        }
+        .nav {
+            background-color: rgba(47, 49, 54, 0.8);
+            padding: 10px 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        .nav a:hover {
+            background-color: #40444b;
+        }
+        .main-content {
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .main-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .main-content p {
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+        .main-content .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .main-content .cta-buttons a {
+            background-color: #7289da;
+            color: #fff;
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .main-content .cta-buttons a:hover {
+            background-color: #5b6eae;
+        }
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 50px 20px;
+            gap: 20px;
+        }
+        .feature {
+            background-color: rgba(47, 49, 54, 0.8);
+            padding: 20px;
+            border-radius: 5px;
+            width: 300px;
+            text-align: center;
+        }
+        .feature i {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .feature h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .feature p {
+            font-size: 16px;
+        }
+        .about-us, .contact, .testimonials, .pricing, .faq {
+            background-color: rgba(47, 49, 54, 0.8);
+            padding: 50px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .about-us h2, .contact h2, .testimonials h2, .pricing h2, .faq h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .about-us p, .contact p, .testimonials p, .pricing p, .faq p {
+            font-size: 18px;
+            max-width: 800px;
+            margin: 0 auto 20px;
+        }
+        .contact form {
+            display: flex;
+            flex-direction: column;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .contact input, .contact textarea {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #40444b;
+            color: #fff;
+        }
+        .contact button {
+            background-color: #7289da;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .contact button:hover {
+            background-color: #5b6eae;
+        }
+        .footer {
+            background-color: rgba(32, 34, 37, 0.8);
+            padding: 20px;
+            text-align: center;
+        }
+        .footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+        .testimonial {
+            background-color: rgba(64, 68, 75, 0.8);
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .testimonial img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        .pricing-plans {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .pricing-plan {
+            background-color: rgba(64, 68, 75, 0.8);
+            padding: 20px;
+            border-radius: 5px;
+            width: 300px;
+        }
+        .pricing-plan h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .pricing-plan .price {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .pricing-plan ul {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+        .pricing-plan li {
+            margin-bottom: 10px;
+        }
+        .pricing-plan .cta {
+            background-color: #7289da;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+        .pricing-plan .cta:hover {
+            background-color: #5b6eae;
+        }
+        .faq-item {
+            background-color: rgba(64, 68, 75, 0.8);
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .faq-item h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://storage.googleapis.com/a1aa/image/CFMh70ebCjUek0D6fjM3PtXlfmDq2WMfMFnfhsmhr5fHgjv2JA.jpg" alt="HyperX Logo">
+    </div>
+    <nav class="nav">
+        <a href="#home">Home</a>
+        <a href="#features">Features</a>
+        <a href="#about">About Us</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <div id="home" class="main-content">
+        <h1>Welcome to Hyper<i><b>X</b></i></h1>
+        <p>Your place to talk and hang out. Whether you're part of a school club, gaming group, worldwide art community, or just a handful of friends that want to spend time together, HyperX makes it easy to talk every day and hang out more often.</p>
+        <div class="cta-buttons">
+            <a href="#">Download for Windows</a>
+            <a href="login.html">Open HyperX in your browser</a>
+        </div>
+    </div>
+    <div id="features" class="features">
+        <div class="feature">
+            <i class="fas fa-comments"></i>
+            <h3>Create an invite-only place where you belong</h3>
+            <p>HyperX servers are organized into topic-based channels where you can collaborate, share, and just talk about your day without clogging up a group chat.</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-users"></i>
+            <h3>Where hanging out is easy</h3>
+            <p>Grab a seat in a voice channel when you're free. Friends in your server can see you're around and instantly pop in to talk without having to call.</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-shield-alt"></i>
+            <h3>From few to a fandom</h3>
+            <p>Get any community running with moderation tools and custom member access. Give members special powers, set up private channels, and more.</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-video"></i>
+            <h3>High-quality video calls</h3>
+            <p>Experience crystal-clear video chats with up to 25 participants. Share your screen, collaborate on projects, or just hang out face-to-face.</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-lock"></i>
+            <h3>Secure and private</h3>
+            <p>Your conversations are protected with end-to-end encryption. We prioritize your privacy and data security above all else.</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-mobile-alt"></i>
+            <h3>Stay connected on the go</h3>
+            <p>Access HyperX from your mobile device. Never miss a message or an important conversation, no matter where you are.</p>
+        </div>
+    </div>
+    <div id="about" class="about-us">
+        <h2>About Us</h2>
+        <p>HyperX was founded with a simple yet powerful vision: to create a space where people can come together, share ideas, and build communities without boundaries. Our platform is designed to foster connections, encourage collaboration, and make communication seamless and enjoyable.</p>
+        <p>We believe in the power of community and the magic that happens when people with shared interests come together. Whether you're a gamer, an artist, a student, or just someone looking to connect with like-minded individuals, HyperX is here to provide you with the tools and space you need to thrive.</p>
+        <p>Our team is composed of passionate individuals who are dedicated to improving and expanding the HyperX platform. We're constantly working on new features and improvements to enhance your experience and make HyperX the best place for online communities.</p>
+    </div>
+    <div id="testimonials" class="testimonials">
+        <h2>What Our Users Say</h2>
+        <div class="testimonial">
+            <img src="../images/cars.jpg" alt="User Avatar">
+            <p>"HyperX has completely transformed how our gaming community interacts. The voice channels and screen sharing features are game-changers!"</p>
+            <p><strong>- Alex, Gamer</strong></p>
+        </div>
+        <div class="testimonial">
+            <img src="../images/server5.jpg" alt="User Avatar">
+            <p>"As a teacher, I've found HyperX invaluable for creating a vibrant online classroom environment. It's intuitive and feature-rich."</p>
+            <p><strong>- Sarah, Educator</strong></p>
+        </div>
+        <div class="testimonial">
+            <img src="../images/server4.jpg" alt="User Avatar">
+            <p>"Our software development team has become more productive since we started using HyperX. The integration with our existing tools is seamless."</p>
+            <p><strong>- Mike, Software Engineer</strong></p>
+        </div>
+    </div>
+    <div id="pricing" class="pricing">
+        <h2>Choose Your Plan</h2>
+        <p>Find the perfect HyperX plan for your needs</p>
+        <div class="pricing-plans">
+            <div class="pricing-plan">
+                <h3>Basic</h3>
+                <div class="price">$0/month</div>
+                <ul>
+                    <li>Up to 10 members</li>
+                    <li>5 channels</li>
+                    <li>Basic moderation tools</li>
+                    <li>720p video quality</li>
+                </ul>
+                <a href="#" class="cta">Get Started</a>
+            </div>
+            <div class="pricing-plan">
+                <h3>Pro</h3>
+                <div class="price">$9.99/month</div>
+                <ul>
+                    <li>Up to 100 members</li>
+                    <li>Unlimited channels</li>
+                    <li>Advanced moderation tools</li>
+                    <li>1080p video quality</li>
+                    <li>Custom emojis</li>
+                </ul>
+                <a href="#" class="cta">Upgrade Now</a>
+            </div>
+            <div class="pricing-plan">
+                <h3>Enterprise</h3>
+                <div class="price">Contact Us</div>
+                <ul>
+                    <li>Unlimited members</li>
+                    <li>Unlimited channels</li>
+                    <li>Advanced security features</li>
+                    <li>4K video quality</li>
+                    <li>Dedicated support</li>
+                    <li>Custom integrations</li>
+                </ul>
+                <a href="#" class="cta">Contact Sales</a>
+            </div>
+        </div>
+    </div>
+    <div id="faq" class="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h3>How secure is HyperX?</h3>
+            <p>HyperX uses state-of-the-art encryption to ensure your conversations and data remain private and secure. We also offer two-factor authentication for an extra layer of security.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Can I use HyperX on mobile devices?</h3>
+            <p>Yes! HyperX is available on both iOS and Android devices. You can download our mobile app from the App Store or Google Play Store.</p>
+        </div>
+        <div class="faq-item">
+            <h3>How many people can join a voice channel?</h3>
+            <p>Our voice channels can support up to 25 participants simultaneously, making it perfect for team meetings, study groups, or gaming sessions.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Is there a limit to the number of servers I can join?</h3>
+            <p>There's no limit to the number of servers you can join on HyperX. You're free to be part of as many communities as you like!</p>
+        </div>
+    </div>
+    <div id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <p>Have questions, suggestions, or just want to say hello? We'd love to hear from you! Fill out the form below, and we'll get back to you as soon as possible.</p>
+        <form>
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea placeholder="Your Message" rows="5" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 HyperX. All rights reserved.</p>
+    </div>
+</body>
+</html>

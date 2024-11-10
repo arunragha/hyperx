@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Login</title>
+    <style>
+        :root {
+            --primary-color: #5865F2;
+            --secondary-color: #ffffff;
+            --background-color: #36393f;
+            --text-color: #ffffff;
+            --input-background: #40444b;
+            --input-text: #dcddde;
+            --link-color: #00b0f4;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            color: var(--text-color);
+            overflow: hidden;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--background-color);
+            overflow: hidden;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 100px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 88.7'%3E%3Cpath d='M800 56.9c-155.5 0-204.9-50-405.5-49.9-200 0-250 49.9-394.5 49.9v31.8h800v-.2-31.6z' fill='%235865F2'/%3E%3C/svg%3E");
+            background-size: 50% 100px;
+            animation: wave 10s linear infinite;
+        }
+
+        .wave:nth-child(2) {
+            bottom: 10px;
+            opacity: 0.5;
+            animation: wave 7s linear infinite;
+        }
+
+        .wave:nth-child(3) {
+            bottom: 20px;
+            opacity: 0.2;
+            animation: wave 5s linear infinite;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: twinkle 2s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        .button {
+            width: 80%;
+            max-width: 300px;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .button:active {
+            transform: translateY(0);
+        }
+
+        .register {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        .register:hover {
+            background-color: #f6f6f7;
+        }
+
+        .login {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+        }
+
+        .login:hover {
+            background-color: #4752c4;
+        }
+
+        .form-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            background-color: var(--input-background);
+            color: var(--input-text);
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            transition: background-color 0.3s;
+        }
+        .error-message {
+    color: #ff3860;
+    font-size: 0.8em;
+    margin-top: -5px;
+    margin-bottom: 10px;
+    display: none;
+  }
+
+        .form-container button:hover {
+            background-color: #4752c4;
+        }
+
+        .form-container a {
+            color: var(--link-color);
+            text-decoration: none;
+            margin-top: 10px;
+            transition: color 0.3s;
+        }
+
+        .form-container a:hover {
+            color: #0056b3;
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 2em;
+            }
+
+            .subtitle {
+                font-size: 1em;
+            }
+        }
+        #loginForm button a:hover{
+            text-decoration: none;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="background">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="stars" id="stars"></div>
+    </div>
+    <div class="content">
+        <img alt="Discord logo" class="logo" src="https://storage.googleapis.com/a1aa/image/CFMh70ebCjUek0D6fjM3PtXlfmDq2WMfMFnfhsmhr5fHgjv2JA.jpg">
+        <h1 class="title">WELCOME TO <i>HyperX</i></h1>
+        <p class="subtitle">Hang out, play games or just talk. Tap below to get started!</p>
+        <button class="button register" onclick="showRegisterForm()">Register</button>
+        <button class="button login" onclick="showLoginForm()">Log In</button>
+
+        <form class="form-container" id="registerForm" style="display: none;" onsubmit="handleSubmit(event, 'register')">
+            <label for="phoneNumber" class="sr-only">Phone Number</label>
+            <input type="tel" id="phoneNumber" placeholder="Phone Number" required>
+            <div id="phoneNumberError" class="error-message"></div>
+            <label for="email" class="sr-only">Email</label>
+            <input type="email" id="email" placeholder="Email" required>
+            <div id="emailError" class="error-message"></div>
+            <button type="submit">Register</button>
+            <a href="#" onclick="showLoginForm()">Already have an account? Log In</a>
+          </form>
+          
+          <form class="form-container" id="loginForm" style="display: none;" onsubmit="handleSubmit(event, 'login')">
+            <label for="username" class="sr-only">Username or Email</label>
+            <input type="text" id="username" placeholder="Username or Email" required>
+            <div id="usernameError" class="error-message"></div>
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" id="password" placeholder="Password" required>
+            <div id="passwordError" class="error-message"></div>
+            <button type="submit"><a href="index.html">Log In</a></button>
+            <a href="#" onclick="showResetPasswordForm()">Forgot Password?</a>
+            <a href="#" onclick="showRegisterForm()">Don't have an account? Register</a>
+          </form>
+
+        <form class="form-container" id="resetPasswordForm" style="display: none;" onsubmit="handleSubmit(event, 'reset')">
+            <label for="resetEmail" class="sr-only">Enter your email to reset password</label>
+            <input type="email" id="resetEmail" placeholder="Enter your email to reset password" required>
+            <button type="submit">Reset Password</button>
+            <a href="#" onclick="showLoginForm()">Back to Log In</a>
+        </form>
+    </div>
+
+    <script>
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numberOfStars = 100;
+
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.width = `${Math.random() * 2 + 1}px`;
+                star.style.height = star.style.width;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 2}s`;
+                starsContainer.appendChild(star);
+            }
+        }
+
+        createStars();
+
+        function showRegisterForm() {
+            document.getElementById('registerForm').style.display = 'flex';
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('resetPasswordForm').style.display = 'none';
+        }
+
+        function showLoginForm() {
+            document.getElementById('loginForm').style.display = 'flex';
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('resetPasswordForm').style.display = 'none';
+        }
+
+        function showResetPasswordForm() {
+            document.getElementById('resetPasswordForm').style.display = 'flex';
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'none';
+        }
+
+        function handleSubmit(event, formType) {
+            event.preventDefault();
+            console.log(`${formType} form submitted`);
+        }
+
+        function validateEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+}
+
+function validatePassword(password) {
+  // At least 8 characters, 1 uppercase, 1 lowercase, 1 number
+  const re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+  return re.test(password);
+}
+
+function validatePhoneNumber(phoneNumber) {
+  // Basic phone number validation (adjust as needed)
+  const re = /^\+?[1-9]\d{1,14}$/;
+  return re.test(phoneNumber);
+}
+
+function showError(inputId, message) {
+  const errorElement = document.getElementById(`${inputId}Error`);
+  if (errorElement) {
+    errorElement.textContent = message;
+    errorElement.style.display = 'block';
+  }
+}
+
+function clearError(inputId) {
+  const errorElement = document.getElementById(`${inputId}Error`);
+  if (errorElement) {
+    errorElement.textContent = '';
+    errorElement.style.display = 'none';
+  }
+}
+
+function handleSubmit(event, formType) {
+  event.preventDefault();
+  let isValid = true;
+
+  if (formType === 'register') {
+    const phoneNumber = document.getElementById('phoneNumber').value;
+    const email = document.getElementById('email').value;
+
+    if (!validatePhoneNumber(phoneNumber)) {
+      showError('phoneNumber', 'Please enter a valid phone number.');
+      isValid = false;
+    } else {
+      clearError('phoneNumber');
+    }
+
+    if (!validateEmail(email)) {
+      showError('email', 'Please enter a valid email address.');
+      isValid = false;
+    } else {
+      clearError('email');
+    }
+  } else if (formType === 'login') {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    if (!validateEmail(username) && !validatePhoneNumber(username)) {
+      showError('username', 'Please enter a valid email or phone number.');
+      isValid = false;
+    } else {
+      clearError('username');
+    }
+
+    if (!validatePassword(password)) {
+      showError('password', 'Password must be at least 8 characters long, include 1 uppercase, 1 lowercase, and 1 number.');
+      isValid = false;
+    } else {
+      clearError('password');
+    }
+  }
+
+  if (isValid) {
+    console.log(`${formType} form submitted successfully`);
+  }
+}
+    </script>
+</body>
+</html>

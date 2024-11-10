@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Discord</title>
+    <script src="https://kit.fontawesome.com/222cea3eed.js"></script>
+    <style>
+      * {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    font-family: sans-serif;
+    overflow: hidden;
+}
+
+img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin-top: 10px;
+}
+
+.servers {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #23272a;
+    overflow-y: scroll;
+    height: 100vh;
+    width: 70px;
+}
+
+.logo > img {
+    height: 45px;
+    width: 50px;
+    border-radius: 30%;
+    cursor: pointer;
+    border: none;
+}
+
+.logo::before {
+    content: "";
+    height: 2px;
+    width: 35px;
+    position: absolute;
+    top: 9%;
+    left: 25%;
+    background-color: #353a3f;
+}
+
+.logo::after {
+    content: "";
+    height: 35px;
+    width: 3px;
+    position: absolute;
+    top: 2.1%;
+    left: 0%;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+.server-logo {
+    position: relative;
+}
+
+.server-logo > img {
+    transition: 0.3s ease-in-out;
+}
+
+.server-logo > img:hover {
+    cursor: pointer;
+    border-radius: 30%;
+    transition: 0.3s ease-in-out;
+}
+
+.server-logo::after {
+    content: "";
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    top: 50%;
+    right: 110%;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+.message__count {
+    position: absolute;
+    color: #fff;
+    font-weight: 600;
+    font-size: 12px;
+    background-color: #fc3c3c;
+    border-radius: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    outline: 3px solid #23272a;
+    right: 10%;
+    top: 70%;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    width: 250px;
+    height: 100vh;
+    background-color: #2f3135;
+    color: gray;
+}
+
+.sidebar__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #2f3135;
+    color: #fff;
+    border-bottom: 2px solid #26282c;
+    height: 20px;
+}
+
+.sidebar__top > input {
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    color: gray;
+    background-color: #1d1d1d;
+    border-radius: 3px;
+    padding: 5px;
+    width: 90%;
+}
+
+.sidebar__icon {
+    padding: 10px;
+}
+
+.sidebar__icon:hover {
+    color: #fff;
+    background-color: #40464b;
+    cursor: pointer;
+}
+
+.sidebar__icon > i {
+    margin-left: 20px;
+}
+
+.sidebar__icon > span {
+    margin-left: 10px;
+    font-weight: 600;
+}
+
+.sidebar__users {
+    flex: 1;
+    overflow: scroll;
+}
+
+.sidebar__usersHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #2f3135;
+    color: gray;
+}
+
+.sidebar__header {
+    display: flex;
+    align-items: center;
+}
+
+.sidebar__addUser {
+    cursor: pointer;
+}
+
+.sidebar__addUser:hover {
+    color: #fff;
+}
+
+.sidebar__user {
+    display: flex;
+    padding: 5px;
+    align-items: center;
+    background-color: #2f3135;
+    color: gray;
+    cursor: pointer;
+}
+
+.sidebar__user:hover {
+    color: #fff;
+    background-color: #40464b;
+}
+
+.sidebar__user > div {
+    position: relative;
+}
+
+.sidebar__user > div > img {
+    height: 35px;
+    width: 35px;
+    margin: 0;
+}
+
+.sidebar__user > h4 {
+    margin-left: 15px;
+}
+
+.status {
+    height: 10px;
+    width: 10px;
+    background-color: #4fb185;
+    border-radius: 50%;
+    position: absolute;
+    top: 65%;
+    left: 65%;
+    outline: 3px solid #2f3135;
+}
+
+.sidebar__profile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #292a2d;
+    padding-left: 10px;
+}
+
+.sidebar__profile > div {
+    position: relative;
+}
+
+.sidebar__profile > div > img {
+    height: 30px;
+    width: 30px;
+    margin: 0;
+}
+
+.sidebar__profileInfo {
+    flex: 1;
+    padding: 10px;
+}
+
+.sidebar__profileInfo > h3 {
+    color: #fff;
+    font-size: 15px;
+}
+
+.sidebar__profileInfo > p {
+    color: #fff;
+    font-size: 10px;
+}
+
+.sidebar__profileIcons > i {
+    padding: 10px;
+}
+
+.chat {
+    display: flex;
+    flex-direction: column;
+    background-color: #353a3f;
+    height: 100vh;
+    flex: 1;
+}
+
+.chatHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: grey;
+    height: 50px;
+    border-bottom: 2px solid #26282c;
+}
+
+.chatHeader__left {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-size: 12px;
+}
+
+.chatHeader__Dm {
+    color: grey;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.chatHeader__right {
+    display: flex;
+    align-items: center;
+    column-gap: 15px;
+    margin-right: 10px;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    color: grey;
+    background-color: #1d1d1d;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+.search > input {
+    background-color: transparent;
+    outline-width: 0;
+    color: #fff;
+    border: none;
+}
+
+.chat__messages {
+    flex: 1;
+    overflow: scroll;
+}
+.chat__messages1 {
+    flex: 1;
+    overflow: scroll;
+}
+
+.message {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    color: #fff;
+}
+
+.message__info {
+    margin-left: 20px;
+}
+
+.message__timestamp {
+    color: grey;
+    margin-left: 20px;
+    font-size: x-small;
+}
+
+.message__info > p {
+    width: 300px;
+    word-wrap: break-word;
+}
+
+.chat__input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 20px;
+    background-color: #474b53;
+    color: lightgray;
+}
+
+.chat__input > form {
+    flex: 1;
+}
+
+.chat__input > form > input {
+    padding: 5px;
+    background-color: transparent;
+    border: none;
+    outline-width: 0;
+    color: #fff;
+    width: 100%;
+}
+
+.chat__inputButton {
+    display: none;
+}
+
+.chat__inputIcons > i {
+    margin-left: 10px;
+}
+
+@media (max-width: 840px) {
+    .servers {
+        display: none;
+    }
+
+    .sidebar {
+        width: 70px;
+        align-items: center;
+    }
+
+    .sidebar__icon > span {
+        display: none;
+    }
+
+    .sidebar__icon > i {
+        margin: 0;
+    }
+
+    .sidebar__usersHeader {
+        justify-content: center;
+    }
+
+    .sidebar__header {
+        display: none;
+    }
+
+    .sidebar__user > h4 {
+        display: none;
+    }
+
+    .sidebar__profile {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .sidebar__profileInfo {
+        display: none;
+    }
+
+    .sidebar__profileIcons {
+        display: flex;
+    }
+
+    .sidebar__profileIcons > i {
+        padding: 5px;
+    }
+
+    .chatHeader {
+        justify-content: center;
+    }
+
+    .chatHeader__left {
+        display: none;
+    }
+}
+.sidebar-toggle {
+        display: none;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 1000;
+        background-color: #7289da;
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+      }
+
+      @media (max-width: 840px) {
+        .sidebar-toggle {
+          display: block;
+        }
+
+        .sidebar.hidden {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="servers">
+      <div class="logo">
+        <img src="https://storage.googleapis.com/a1aa/image/CFMh70ebCjUek0D6fjM3PtXlfmDq2WMfMFnfhsmhr5fHgjv2JA.jpg" alt="Discord" />
+      </div>
+      <div class="server-logo">
+        <span class="message__count">8</span>
+        <img src="../images/server1.jpg" alt="server" />
+      </div>
+      <div class="server-logo">
+        <span class="message__count">50</span>
+        <img src="../images/server2.jpg" alt="server" />
+      </div>
+      <div class="server-logo">
+        <span class="message__count">120</span>
+        <img src="../images/server3.jpg" alt="server" />
+      </div>
+      <div class="server-logo">
+        <span class="message__count">20</span>
+        <img src="../images/server4.jpg" alt="server" />
+      </div>
+      <div class="server-logo">
+        <span class="message__count">25</span>
+        <img src="../images/server5.jpg" alt="server" />
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="sidebar__top">
+        <button class="sidebar-toggle">☰</button>
+        <input type="text" placeholder="Find or start a conversation" />
+      </div>
+      <div class="sidebar__icon">
+        <i class="fas fa-user-friends fa-lg"></i>
+        <span>Friends</span>
+      </div>
+      <div class="sidebar__icon">
+        <i class="fas fa-compact-disc fa-lg"></i>
+        <span>Nitro</span>
+      </div>
+      <div class="sidebar__users">
+        <div class="sidebar__usersHeader">
+          <div class="sidebar__header">
+            <h4>Direct messages</h4>
+          </div>
+          <i class="fas fa-plus sidebar__addUser"></i>
+        </div>
+        <div>
+          <div class="sidebar__user">
+            <div>
+              <span class="status"></span>
+              <img src="../images/user1.jpg" alt="avatar" />
+            </div>
+            <h4>Hacker</h4>
+          </div>
+          <div class="sidebar__user">
+            <div>
+              <span class="status"></span>
+              <img src="../images/user2.jpg" alt="avatar" />
+            </div>
+            <h4>E-Girl</h4>
+          </div>
+          <div class="sidebar__user">
+            <div>
+              <span class="status"></span>
+              <img src="../images/user3.jpg" alt="avatar" />
+            </div>
+            <h4>ManInBlack</h4>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar__profile">
+        <div>
+          <span class="status"></span>
+          <img src="../images/user4.jpg" alt="avatar" />
+        </div>
+        <div class="sidebar__profileInfo">
+          <h3>Gamer</h3>
+          <p>#1234</p>
+        </div>
+        <div class="sidebar__profileIcons">
+          <i class="fas fa-microphone"></i>
+          <i class="fas fa-headset"></i>
+          <i class="fas fa-cog"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat">
+      <div>
+        <div class="chatHeader">
+          <div class="chatHeader__left">
+            <span class="chatHeader__Dm">@</span>
+            <h3>ManInBlack</h3>
+          </div>
+          <div class="chatHeader__right">
+            <i class="fas fa-phone-volume fa-lg"></i>
+            <i class="fas fa-video fa-lg"></i>
+            <i class="fas fa-thumbtack fa-lg"></i>
+            <i class="fas fa-user-plus fa-lg"></i>
+
+            <div class="search">
+              <input type="text" placeholder="search" />
+              <i class="fas fa-search fa-lg"></i>
+            </div>
+            <i class="fas fa-inbox fa-lg"></i>
+            <i class="fas fa-question-circle fa-lg"></i>
+          </div>
+        </div>
+      </div>
+      <div class="chat__messages">
+          <div class="message">
+              <img src="../images/user3.jpg" alt="avatar">
+              <div class="message__info">
+                  <h4>ManInBlack<span class="message__timestamp">09:30</span></h4>
+                  <p>Hey everyone! How's it going?</p>
+              </div>
+          </div>
+          <div class="message">
+              <img src="../images/user1.jpg" alt="avatar">
+              <div class="message__info">
+                  <h4>Hacker<span class="message__timestamp">09:32</span></h4>
+                  <p>Hi ManInBlack! All good here, just working on a new project.</p>
+              </div>
+          </div>
+          <div class="message">
+              <img src="../images/user2.jpg" alt="avatar">
+              <div class="message__info">
+                  <h4>E-Girl<span class="message__timestamp">09:35</span></h4>
+                  <p>Hello! I'm great, thanks for asking. How about you?</p>
+              </div>
+          </div>
+          <div class="message">
+              <img src="../images/user3.jpg" alt="avatar">
+              <div class="message__info">
+                  <h4>ManInBlack<span class="message__timestamp">09:37</span></h4>
+                  <p>I'm doing well, thanks! @Hacker, what kind of project are you working on?</p>
+              </div>
+          </div>
+          <div class="message">
+              <img src="../images/user1.jpg" alt="avatar">
+              <div class="message__info">
+                  <h4>Hacker<span class="message__timestamp">09:40</span></h4>
+                  <p>It's a new cybersecurity tool. I'll share more details once it's ready for testing!</p>
+              </div>
+          </div>
+          <div class="message">
+              <img src="../images/user4.jpg" alt="avatar">
+              <div class="message__info">
+                  <h4>Gamer<span class="message__timestamp">09:42</span></h4>
+                  <p>Hey all! Sorry I'm late to the chat. Anyone up for some gaming later?</p>
+              </div>
+          </div>
+          <div class="message">
+              <img src="../images/user2.jpg" alt="avatar">
+              <div class="message__info">
+                  <h4>E-Girl<span class="message__timestamp">09:45</span></h4>
+                  <p>@Gamer I'm in! What game do you want to play?</p>
+              </div>
+          </div>
+      </div>
+
+      <div class="chat__input">
+        <i class="fas fa-plus-circle fa-lg"></i>
+        <form>
+            <input class="sendMessage" type="text" placeholder="send message">
+            <button class="chat__inputButton" type="submit">Send</button>
+        </form>
+        <div class="chat__inputIcons">
+          <i class="fas fa-gift fa-lg"></i>
+          <i class="fas fa-file-image fa-lg"></i>
+          <i class="fas fa-laugh fa-lg"></i>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
